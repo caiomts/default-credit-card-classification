@@ -1,0 +1,12 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python src/get_data.py
+    deps:
+    - path: src/get_data.py
+      md5: dca3d306244b192a1fb778b5b12bb45c
+      size: 291
+    outs:
+    - path: data/default_credit_card_clients.csv
+      md5: 5700d07494ae7f03f621e92585dd281d
+      size: 2698396
