@@ -1,0 +1,32 @@
+name: model-mapa-dominio-rj
+on: [push]
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: iterative/setup-cml@v1
+    - uses: iterative/setup-dvc@v1
+    - uses: actions/setup-python@v2
+     with:
+       python-version: '3.9'
+    - name: cml
+      env:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        pip install -r requeriments.txt
+
+        dvc repro
+        echo "## Metrics" >> report.md
+        git fetch --prune
+        echo "### F1 score" >> report.md
+        dvc metrics diff master --show-md > report.md
+        echo "## Plots" >> report.md
+
+        dvc plots diff --target prc.json -x recall -y precision --show-vega master > vega.json
+        vl2png vega.json -s 1.5 | cml-publish --md >> report.md
+
+        dvc plots show classes.csv --template confusion -x actual -y predicted  --show-vega master > vega.json
+        v12png vega.json -s 1.5 | cml-publish --md >> report.md
+
+        cml-send-comment report.md
