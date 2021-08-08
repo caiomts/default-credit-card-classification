@@ -28,5 +28,6 @@ xtr_clf = ExtraTreesClassifier(random_state=42, n_jobs=-1, n_estimators=params['
 xtr_clf = xtr_clf.fit(X_train, np.ravel(y_train))
 
 # Pickles
+os.makedirs('models/', exist_ok=True)
 joblib.dump(xtr_clf, os.path.join('models', 'clf.pkl'))
 
