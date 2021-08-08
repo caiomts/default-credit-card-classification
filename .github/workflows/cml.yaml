@@ -20,13 +20,13 @@ jobs:
           echo "## Metrics" >> report.md
           git fetch --prune
           echo "### F1 score" >> report.md
-          dvc metrics diff master --show-md > report.md
+          dvc metrics diff --show-md main > report.md
           echo "## Plots" >> report.md
 
-          dvc plots diff --target prc.json -x recall -y precision --show-vega master > vega.json
+          dvc plots diff --target prc.json -x recall -y precision --show-vega main > vega.json
           vl2png vega.json -s 1.5 | cml-publish --md >> report.md
 
-          dvc plots show classes.csv --template confusion -x actual -y predicted  --show-vega master > vega.json
+          dvc plots show classes.csv --template confusion -x actual -y predicted  --show-vega main > vega.json
           v12png vega.json -s 1.5 | cml-publish --md >> report.md
 
           cml-send-comment report.md
