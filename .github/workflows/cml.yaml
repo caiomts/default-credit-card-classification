@@ -29,7 +29,6 @@ jobs:
             --show-vega main > vega.json
           vl2png vega.json -s 1.5 | cml-publish --md >> report.md
 
-          dvc plots show classes.csv --template confusion -x actual -y predicted  --show-vega > vega.json
-          v12png vega.json -s 1.5 | cml-publish --md >> report.md
+          dvc plots show classes.csv --template confusion -x actual -y predicted | cml-publish --md >> report.md
 
           cml-send-comment report.md
