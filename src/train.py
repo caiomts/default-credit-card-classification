@@ -5,6 +5,7 @@
 # Imports
 import os
 import pandas as pd
+import numpy as np
 import joblib
 from sklearn.ensemble import ExtraTreesClassifier
 import yaml
@@ -24,7 +25,7 @@ y_train = pd.read_parquet(os.path.join('data', 'y_train.parquet'))
 # Train
 xtr_clf = ExtraTreesClassifier(random_state=42, n_jobs=-1, n_estimators=params['n_estimators'],
                                max_leaf_nodes=params['max_leaf_nodes'], max_features=params['max_features'])
-xtr_clf = xtr_clf.fit(X_train, y_train)
+xtr_clf = xtr_clf.fit(X_train, np.ravel(y_train))
 
 # Pickles
 joblib.dump(xtr_clf, os.path.join('models', 'clf.pkl'))
