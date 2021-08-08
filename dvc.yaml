@@ -5,3 +5,15 @@ stages:
     - src/get_data.py
     outs:
     - data/default_credit_card_clients.csv
+  split_tt:
+    cmd: python src/split_train_test.py
+    deps:
+    - data/default_credit_card_clients.csv
+    - src/split_train_test.py
+    params:
+    - split_tt.test_size
+    outs:
+    - data/x_train.parquet
+    - data/y_train.parquet
+    - data/x_test.parquet
+    - data/y_test.parquet

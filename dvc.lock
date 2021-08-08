@@ -4,9 +4,34 @@ stages:
     cmd: python src/get_data.py
     deps:
     - path: src/get_data.py
-      md5: dca3d306244b192a1fb778b5b12bb45c
-      size: 291
+      md5: 2b41c1dc86037c22d5f0860e5581d33b
+      size: 309
     outs:
     - path: data/default_credit_card_clients.csv
       md5: 5700d07494ae7f03f621e92585dd281d
       size: 2698396
+  split_tt:
+    cmd: python src/split_train_test.py
+    deps:
+    - path: data/default_credit_card_clients.csv
+      md5: 5700d07494ae7f03f621e92585dd281d
+      size: 2698396
+    - path: src/split_train_test.py
+      md5: 10688678798cece0fe228751cc1b0d44
+      size: 973
+    params:
+      params.yaml:
+        split_tt.test_size: 0.3
+    outs:
+    - path: data/x_test.parquet
+      md5: 342fd4329339b63f6084f38390f2684a
+      size: 565971
+    - path: data/x_train.parquet
+      md5: 8c61beaea7c524ec91b1fa076434f729
+      size: 1264714
+    - path: data/y_test.parquet
+      md5: 5c1200d27073531b02630303e2b26a41
+      size: 56798
+    - path: data/y_train.parquet
+      md5: d1c80be15e34346f6fe937819ca68cee
+      size: 131596
