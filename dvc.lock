@@ -17,8 +17,8 @@ stages:
       md5: 5700d07494ae7f03f621e92585dd281d
       size: 2698396
     - path: src/split_train_test.py
-      md5: 10688678798cece0fe228751cc1b0d44
-      size: 973
+      md5: 2aa3edc83e9eb1cc0fa815eb23ba830f
+      size: 1041
     params:
       params.yaml:
         split_tt.test_size: 0.3

@@ -28,7 +28,7 @@ for train_index, test_index in sss.split(X, y):
     y_train, y_test = y.loc[train_index], y.loc[test_index]
 
 # save
-X_train.to_parquet('data/x_train.parquet')
-y_train.to_parquet('data/y_train.parquet')
-X_test.to_parquet('data/x_test.parquet')
-y_test.to_parquet('data/y_test.parquet')
+X_train.to_parquet(os.path.join('data', 'x_train.parquet'))
+y_train.to_parquet(os.path.join('data', 'y_train.parquet'))
+X_test.to_parquet(os.path.join('data', 'x_test.parquet'))
+y_test.to_parquet(os.path.join('data', 'y_test.parquet'))
