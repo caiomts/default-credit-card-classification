@@ -1,2 +1,6 @@
 split_tt:
   test_size: 0.3
+train:
+  n_estimators: 200
+  max_leaf_nodes: 15
+  max_features:

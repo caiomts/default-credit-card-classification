@@ -4,8 +4,8 @@ stages:
     cmd: python src/get_data.py
     deps:
     - path: src/get_data.py
-      md5: 2b41c1dc86037c22d5f0860e5581d33b
-      size: 309
+      md5: 55edfefebcf7dce3da39da9e29d22748
+      size: 319
     outs:
     - path: data/default_credit_card_clients.csv
       md5: 5700d07494ae7f03f621e92585dd281d
@@ -35,3 +35,49 @@ stages:
     - path: data/y_train.parquet
       md5: d1c80be15e34346f6fe937819ca68cee
       size: 131596
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/x_train.parquet
+      md5: 8c61beaea7c524ec91b1fa076434f729
+      size: 1264714
+    - path: data/y_train.parquet
+      md5: d1c80be15e34346f6fe937819ca68cee
+      size: 131596
+    - path: src/train.py
+      md5: 1c2b4953a2f56b1199fe6370ec898134
+      size: 926
+    params:
+      params.yaml:
+        train.max_features:
+        train.max_leaf_nodes: 15
+        train.n_estimators: 200
+    outs:
+    - path: models/clf.pkl
+      md5: 91f28946220132dc427d54d7a6290431
+      size: 487341
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: data/x_test.parquet
+      md5: 342fd4329339b63f6084f38390f2684a
+      size: 565971
+    - path: data/y_test.parquet
+      md5: 5c1200d27073531b02630303e2b26a41
+      size: 56798
+    - path: models/clf.pkl
+      md5: 91f28946220132dc427d54d7a6290431
+      size: 487341
+    - path: src/evaluate.py
+      md5: d3014624c7893f4de844979d4ccdb50e
+      size: 1249
+    outs:
+    - path: classes.csv
+      md5: 3f41abc28a24657c4e1226343bd35ce6
+      size: 36017
+    - path: prc.json
+      md5: d100c1e22b6af741c91e54137fa9ebd7
+      size: 144141
+    - path: scores.json
+      md5: 53ac1ab8a08d9ed3e0f3529b57d4778e
+      size: 33
