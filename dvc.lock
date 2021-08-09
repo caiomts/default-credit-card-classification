@@ -45,8 +45,8 @@ stages:
       md5: d1c80be15e34346f6fe937819ca68cee
       size: 131596
     - path: src/train.py
-      md5: 1c2b4953a2f56b1199fe6370ec898134
-      size: 926
+      md5: 21d6d82ea9623803485d13e88103b6ae
+      size: 993
     params:
       params.yaml:
         train.max_features:
