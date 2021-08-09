@@ -1,0 +1,35 @@
+name: credit-card-default
+on: [push]
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: iterative/setup-cml@v1
+      - uses: iterative/setup-dvc@v1
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: cml
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install -r requirements.txt
+
+          dvc repro
+
+          echo "## Metrics" > report.md
+          git fetch --prune
+
+          dvc metrics diff --show-md main >> report.md
+
+          echo -e "## Plots" >> report.md
+
+          dvc plots diff \
+            --target prc.json \
+            -x recall \
+            -y precision \
+            --show-vega main > vega.json
+          vl2png vega.json -s 1.5 | cml-publish --md >> report.md
+
+          cml-send-comment report.md

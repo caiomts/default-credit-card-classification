@@ -5,3 +5,47 @@ stages:
     - src/get_data.py
     outs:
     - data/default_credit_card_clients.csv
+  split_tt:
+    cmd: python src/split_train_test.py
+    deps:
+    - data/default_credit_card_clients.csv
+    - src/split_train_test.py
+    params:
+    - split_tt.test_size
+    outs:
+    - data/x_train.parquet
+    - data/y_train.parquet
+    - data/x_test.parquet
+    - data/y_test.parquet
+  train:
+    cmd: python src/train.py
+    deps:
+    - data/x_train.parquet
+    - data/y_train.parquet
+    - src/train.py
+    params:
+    - train.n_estimators
+    - train.max_leaf_nodes
+    - train.max_features
+    outs:
+    - models/clf.pkl
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - data/x_test.parquet
+    - data/y_test.parquet
+    - models/clf.pkl
+    - src/evaluate.py
+    metrics:
+    - scores.json:
+        cache: false
+    plots:
+    - classes.csv:
+        cache: false
+        x: actual
+        y: predicted
+        template: confusion
+    - prc.json:
+        cache: false
+        x: recall
+        y: precision
