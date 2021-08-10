@@ -51,11 +51,11 @@ stages:
       params.yaml:
         train.max_features:
         train.max_leaf_nodes: 15
-        train.n_estimators: 200
+        train.n_estimators: 300
     outs:
     - path: models/clf.pkl
-      md5: 91f28946220132dc427d54d7a6290431
-      size: 487341
+      md5: 77aeeeb4b99ba146af4f09b10cbf0fdc
+      size: 730342
   evaluate:
     cmd: python src/evaluate.py
     deps:
@@ -66,18 +66,18 @@ stages:
       md5: 5c1200d27073531b02630303e2b26a41
       size: 56798
     - path: models/clf.pkl
-      md5: 91f28946220132dc427d54d7a6290431
-      size: 487341
+      md5: 77aeeeb4b99ba146af4f09b10cbf0fdc
+      size: 730342
     - path: src/evaluate.py
       md5: d3014624c7893f4de844979d4ccdb50e
       size: 1249
     outs:
     - path: classes.csv
-      md5: 3f41abc28a24657c4e1226343bd35ce6
+      md5: dc99ce9fda9a2a77d830444b816a17e2
       size: 36017
     - path: prc.json
-      md5: d100c1e22b6af741c91e54137fa9ebd7
-      size: 144141
+      md5: a96070604cc1360aa9012e97f3c0e03c
+      size: 147044
     - path: scores.json
-      md5: 53ac1ab8a08d9ed3e0f3529b57d4778e
-      size: 33
+      md5: b3366533346f5e91f451f7a8c26879d7
+      size: 24
