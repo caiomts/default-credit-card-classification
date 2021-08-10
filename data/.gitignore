@@ -2,3 +2,4 @@
 /y_train.parquet
 /x_test.parquet
 /y_test.parquet
+/default_credit_card_clients.csv
