@@ -30,3 +30,5 @@ Finally, I presented the confusion matrix for the winner classifier. As can be s
 ## Reproducibility
 
 DVC pipelines, CML and GitHub actions to track and reproduce the final model.
+
+Find out more in the [report!](./report/report.pdf)
